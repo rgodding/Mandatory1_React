@@ -99,6 +99,10 @@ export default function FrontPage() {
   );
 }
 
+function getNewsList(){
+  
+}
+
 function SaveNewsArticle(){
   /*
   <Button
