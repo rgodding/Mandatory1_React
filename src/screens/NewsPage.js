@@ -1,29 +1,53 @@
-import {StyleSheet, Image, Text, View, Linking } from "react-native";
+import {StyleSheet, Text, View } from "react-native";
+import { ScrollView, TouchableOpacity, Image } from 'react-native';
 
 export default function NewsPage({ route }){
     const { title, image, credits, article } = route.params
     return (
-      <View>
-        <View>
-          <Text>{title}</Text>
+      <ScrollView style={newsPageStyles.page}>
+        <View style={newsPageStyles.titleContainer}>
+          <Text style={newsPageStyles.title}>{title}</Text>
         </View>
-        <View>
+        <View style={newsPageStyles.content}>
           <Image
             source={{uri: `${image}`,}}
-            style={styles.newsImage}
+            style={newsPageStyles.newsImage}
             />
-          <Text>{credits}</Text>
+          <Text style={newsPageStyles.credits}>{credits}</Text>
         </View>
-        <View>
-          <Text>{article}</Text>
+        <View style={newsPageStyles.article}>
+          <Text style={newsPageStyles.articleText}>{article}</Text>
         </View>
-      </View>
+      </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({
-    newsImage: {
+const newsPageStyles = StyleSheet.create({
+  page: {
+    marginTop: 15,
+    marginLeft: 15,
+    marginRight: 15,
+  }, 
+  titleContainer: {
+
+  }, 
+  title: {
+    fontSize: 28,
+  }, 
+  content: {
+    
+  }, 
+  newsImage: {
         width: 250,
-        height: 250,
-    }
+        height: 250, 
+  }, 
+  credits: {
+    fontSize: 12,
+  }, 
+  article: {
+    padding: 15,
+  }, 
+  articleText: {
+    fontSize: 16,
+  }
 })

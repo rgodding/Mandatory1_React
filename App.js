@@ -7,6 +7,8 @@ export default function App() {
   return Index()
 }
 
+// TODO:
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

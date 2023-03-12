@@ -1,5 +1,5 @@
 import { Button, Text, View } from "react-native";
-import { ScrollView, TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity, Image } from 'react-native';
 import { StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
@@ -46,6 +46,10 @@ export default function FrontPage() {
   const button_1 = (article) => {
     navigation.navigate("News Page", article);
   };
+  const button_2 = () => {
+    console.log('navigating to admin page')
+    navigation.navigate("Admin Page");
+  }
 
   const readDB = async () => {
     const reference = collection(database, newsCollection);
@@ -68,14 +72,22 @@ export default function FrontPage() {
 
   return (
     <ScrollView style={frontPageStyles.page}>
-      <View style={frontPageStyles.title}>
-        <Text>Welcome to the News</Text>
+      <View>
+        <Button
+        title='admin page'
+        onPress={button_2}
+        />
+        <Text style={frontPageStyles.title}>Welcome to the News</Text>
       </View>
       <View style={frontPageStyles.articleList}>
         {newsArticles.map((article) => (
           <View key={article.key} style={frontPageStyles.article}>
             <TouchableOpacity onPress={() => button_1(article)} style={frontPageStyles.articleButton}>
               <Text style={frontPageStyles.articlePreview}>{article.title}</Text>
+              <Image
+            source={{uri: `${article.image}`,}}
+            style={frontPageStyles.newsImage}
+            />
             </TouchableOpacity>
           </View>
         ))}
@@ -158,6 +170,7 @@ function SaveNewsArticle(){
   })
     
 }
+
 function GetNewsArticle(){
     console.log('getting news article')
     return {
@@ -169,31 +182,35 @@ function GetNewsArticle(){
 }
 
 const frontPageStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   page: {
-
+    marginTop: 5,
+    marginRight: 15,
+    marginLeft: 15,
   }, 
   title: {
-    
+    fontSize: 24,
   }, 
   articleList: {
 
   }, 
   article: {
-
+    backgroundColor: 'lightgrey',
+    marginTop: 15,
+    padding: 10,
+    borderRadius: 15,
   }, 
   articleButton: {
 
   }, 
   articlePreview: {
-    
+    fontSize: 24,
   }, 
+  newsImage: {
+    width: 150,
+    height: 150,
+  },
   bottom: {
+    // Make it fixed maybe?
 
   }
 
