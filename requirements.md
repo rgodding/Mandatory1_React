@@ -9,3 +9,4 @@
 - Styling on pages, coloring
 - Delete Article
 - Edit Article
+- Make sure authentication is made prior trying to access the database
