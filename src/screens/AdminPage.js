@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TextInput, Button, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, ScrollView, TouchableOpacity, Alert } from "react-native";
 
-import { collection, addDoc, query, onSnapshot } from 'firebase/firestore'
-import { database, storage } from '../../config/firebase';
-
-import SaveArticle from "../utility/SaveArticle";
+// Utility
+import { readDB } from "../utility/ReadDB";
+import { SaveArticle, DeleteArticle } from "../utility/ArticleManager";
 
 
 // Testing, different app or this will be made on a computer
 // If made on same app, make login to access editing the database and reach the page
-
-const newsCollection = "NewsArticleList"
-
 
 export default function AdminPage(){
     const [title, setTitle] = useState([]);
@@ -30,31 +26,23 @@ export default function AdminPage(){
     }
 
     const button_2 = (article) => {
-        console.log('deleting article: ' + article.title)
-        // TODO: Delete article 
+      console.log('deleting key: ' + article.key)
+      Alert.alert(
+        'Delete Article',
+        `Are you sure you want to delete this article? ${article.title}`,
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'Delete', onPress: () => DeleteArticle(article.key)},
+        ]
+      )
     }
 
     const saveNewArticle = () => {
         SaveArticle(title, imageUrl, credits, article);
     }
 
-    const readDB = async () => {
-        const reference = collection(database, newsCollection);
-        const q = query(reference, (ref) => ref.orderBy("createdAt", "desc"));
-        onSnapshot(q, (snapshot) => {
-          const _newsArticles = [];
-          snapshot.forEach((doc) => {
-            _newsArticles.push({
-              ...doc.data(),
-              key: doc.id,
-            });
-          });
-          setNewsArticles(_newsArticles);
-        });
-      };
-    
     useEffect(() => {
-        readDB();
+        readDB(setNewsArticles)
     }, []);
 
     return (

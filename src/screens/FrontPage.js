@@ -9,22 +9,10 @@ import { useState, useEffect } from "react";
 // Self-Made
 
 // Components
-import NewsCollection from "../components/NewsCollection";
 
 // Utility
-import { readDB } from "../utility/ReadDB";
+import { readDB, connect } from "../utility/ReadDB";
 
-const auth = getAuth();
-
-signInAnonymously(auth)
-  .then(() => {
-    // Signed in..
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ...
-});
 
 export default function FrontPage() {
   const [newsArticles, setNewsArticles] = useState([]);
@@ -34,13 +22,12 @@ export default function FrontPage() {
     navigation.navigate("News Page", article);
   };
   const button_2 = () => {
-    console.log('navigating to admin page')
     navigation.navigate("Admin Page");
-  }
+  };
 
   useEffect(() => {
     const authenticate = async () => {
-      await signInAnonymously(auth);
+      await connect();
       readDB(setNewsArticles);
     };
     authenticate();
