@@ -46,10 +46,9 @@ export default function AdminPage(){
     }, []);
 
     return (
-      <ScrollView>
+      <ScrollView style={adminPageStyles.page}>
         <View style={adminPageStyles.inputContainer}>
-          <Button title="test" onPress={button_1} />
-          <Text>Admin Page</Text>
+          <Text style={adminPageStyles.pageTitle}>Create Article</Text>
 
           <TextInput
             style={adminPageStyles.inputTitle}
@@ -73,22 +72,28 @@ export default function AdminPage(){
             style={adminPageStyles.inputArticle}
             placeholder="article"
             onChangeText={setArticle}
+            multiline={true}
           />
-
-          <Button title="Save Article" onPress={saveNewArticle} />
+          <View style={adminPageStyles.saveButton}>
+            <Button
+              title="Save Article"
+              onPress={saveNewArticle}
+              color="grey"
+            />
+          </View>
         </View>
 
         <View>
-          <Text>Edit Article:</Text>
-          <View>
+          <Text style={adminPageStyles.editArticleTitle}>Edit Article:</Text>
+          <View style={adminPageStyles.editArticleList}>
             {newsArticles.map((article) => (
-              <View key={article.key}>
+              <View key={article.key} style={adminPageStyles.editArticle}>
+                <Text>{article.title}</Text>
                 <TouchableOpacity
+                  style={adminPageStyles.deleteArticle}
                   onPress={() => button_2(article)}
                 >
-                  <Text>
-                    {article.title}
-                  </Text>
+                  <Text>Delete</Text>
                 </TouchableOpacity>
               </View>
             ))}
@@ -100,10 +105,16 @@ export default function AdminPage(){
 
 const adminPageStyles = StyleSheet.create({
     page: {
-
+      margin: 15
+    },
+    pageTitle: {
+      fontSize: 24,
+      backgroundColor: 'lightgrey',
+      padding: 10,
+      borderRadius: 15,
+      textAlign: 'center'
     },
     inputContainer: {
-        margin: 15,
     },
     inputTitle: {
         padding: 5,
@@ -120,5 +131,33 @@ const adminPageStyles = StyleSheet.create({
     inputArticle: {
         padding: 5,
         borderBottomWidth: 0.5,
+    },
+    saveButton: {
+      marginTop: 10,
+    },
+    editArticleTitle: {
+      fontSize: 24,
+      backgroundColor: 'lightgrey',
+      padding: 10,
+      borderRadius: 15,
+      textAlign: 'center',
+      marginTop: 15,
+      marginBottom: 15,
+    },
+    editArticleList: {
+
+    },
+    editArticle: {
+      backgroundColor: 'lightgrey',
+      marginTop: 10,
+      padding: 10,
+      borderRadius: 15,
+    },
+    deleteArticle: {
+      backgroundColor: 'grey',
+      padding: 5,
+      width: 50,
+      borderRadius: 15,
+      marginTop: 5,
     }
 })

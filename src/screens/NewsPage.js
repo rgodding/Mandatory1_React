@@ -13,7 +13,7 @@ export default function NewsPage({ route }){
             source={{uri: `${image}`,}}
             style={newsPageStyles.newsImage}
             />
-          <Text style={newsPageStyles.credits}>{credits}</Text>
+          <Text style={newsPageStyles.credits}>Credit: {credits}</Text>
         </View>
         <View style={newsPageStyles.article}>
           <Text style={newsPageStyles.articleText}>{article}</Text>
@@ -33,19 +33,27 @@ const newsPageStyles = StyleSheet.create({
   }, 
   title: {
     fontSize: 28,
+    backgroundColor: 'grey',
+    borderRadius: 15,
+    padding: 10,
   }, 
   content: {
-    
+    marginTop: 15,
   }, 
   newsImage: {
         width: 250,
         height: 250, 
+        borderRadius: 10,
   }, 
   credits: {
     fontSize: 12,
+    marginTop: 5,
   }, 
   article: {
-    padding: 15,
+    marginTop: 10,
+    backgroundColor: 'lightgrey',
+    padding: 10,
+    borderRadius: 10,
   }, 
   articleText: {
     fontSize: 16,
